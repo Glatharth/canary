@@ -20,6 +20,7 @@
 #ifndef SRC_CREATURES_MONSTERS_MONSTERS_H_
 #define SRC_CREATURES_MONSTERS_MONSTERS_H_
 
+#include "io/io_bosstiary.hpp"
 #include "creatures/creature.h"
 #include "declarations.hpp"
 
@@ -110,6 +111,11 @@ class MonsterType
 		std::string bestiaryLocations;
 		std::string bestiaryClass; // String (addString)
 		BestiaryType_t bestiaryRace = BESTY_RACE_NONE; // Number (addByte)
+
+		// Bosstiary
+		uint16_t bossRaceId = 0;
+		BosstiaryRarity_t bosstiaryRace;
+		std::string bosstiaryClass;
 
 		int32_t creatureAppearEvent = -1;
 		int32_t creatureDisappearEvent = -1;

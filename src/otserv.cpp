@@ -42,6 +42,7 @@
 #include "server/network/webhook/webhook.h"
 #include "server/server.h"
 #include "io/ioprey.h"
+#include "io/io_bosstiary.hpp"
 
 #if __has_include("gitmetadata.h")
 	#include "gitmetadata.h"
@@ -189,6 +190,7 @@ void loadModules() {
 		"npc");
 
 	g_game().loadBoostedCreature();
+	g_ioBosstiary().loadBoostedBoss();
 	g_ioprey().InitializeTaskHuntOptions();
 }
 
