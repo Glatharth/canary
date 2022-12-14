@@ -19,11 +19,6 @@ monster.race = "blood"
 monster.corpse = 33961
 monster.speed = 125
 
-monster.bosstiary = {
-	bossRaceId = 1,
-	bossRace = BOSS_RARITY_ARCHFOE
-}
-
 monster.changeTarget = {
 	interval = 4000,
 	chance = 10

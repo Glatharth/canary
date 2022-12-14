@@ -20,11 +20,6 @@ monster.corpse = 6068
 monster.speed = 350
 monster.manaCost = 0
 
-monster.bosstiary = {
-	bossRaceId = 4,
-	bossRace = BOSS_RARITY_ARCHFOE
-}
-
 monster.changeTarget = {
 	interval = 5000,
 	chance = 40
