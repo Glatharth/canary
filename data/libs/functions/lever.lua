@@ -1,5 +1,4 @@
 ---@author @Glatharth
----@version 5.4
 Lever = {}
 setmetatable(Lever, {
 	__call = function(self)

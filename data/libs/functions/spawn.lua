@@ -1,6 +1,4 @@
 ---@author @Glatharth
----@version 1.0
----@since 1.0
 MonsterStorage = {
 	Spawn = {
 		info = 550000,

@@ -1,56 +1,81 @@
+--@module Spectators
 ---@author @Glatharth
----@version 1.2
----@since 1.0
+---@class Spectators
+---@field only_player boolean
+---@field multi_floor boolean
+---@field blacklist_pos table
+---@field creature_detect table
+---@field remove_destination Position
+---@field check_position table
+
 Spectators = {}
 setmetatable(Spectators, {
-	__call = function(self)
-		local spectators_data = {
+    __call = function(self)
+        local spectators_data = {
             only_player = true,
             multi_floor = false,
             blacklist_pos = {},
             creature_detect = {}
-		}
-		return setmetatable(spectators_data, {__index = Spectators})
-	end
+        }
+        return setmetatable(spectators_data, {__index = Spectators})
+    end
 })
 
-
+--- Get only_player value
+---@return boolean
 function Spectators.getOnlyPlayer(self)
     return self.only_player
 end
 
+--- Set only_player value
+---@param boolean boolean
 function Spectators.setOnlyPlayer(self, boolean)
     self.only_player = boolean
 end
 
+--- Get multi_floor value
+---@return boolean
 function Spectators.getMultiFloor(self)
     return self.multi_floor
 end
 
+--- Set multi_floor value
+---@param boolean boolean
 function Spectators.setMultiFloor(self, boolean)
     self.multi_floor = boolean
 end
 
+--- Set creature_detect value
+---@param creatures table
 function Spectators.setCreatureDetect(self, creatures)
     self.creature_detect = creatures
 end
 
+--- Get creature_detect value
+---@return table
 function Spectators.getCreatureDetect(self)
     return self.creature_detect
 end
 
+--- Remove creature_detect value
 function Spectators.removeCreatureDetect(self)
     self.creature_detect = {}
 end
 
+--- Set remove_destination value
+---@param destination Position
 function Spectators.setRemoveDestination(self, destination)
     self.remove_destination = destination
 end
 
+--- Get remove_destination value
+---@return Position
 function Spectators.getRemoveDestination(self)
     return self.remove_destination
 end
 
+--- Set check_position value
+---@param position table
 function Spectators.setCheckPosition(self, position)
     if position.from and position.to then
         self.check_position = position
@@ -59,14 +84,20 @@ function Spectators.setCheckPosition(self, position)
     end
 end
 
+--- Get check_position value
+---@return table
 function Spectators.getCheckPosition(self)
     return self.check_position
 end
 
+--- Get blacklist_pos value
+---@return table
 function Spectators.getBlacklistPos(self)
     return self.blacklist_pos
 end
 
+--- Set blacklist_pos value
+---@param list table
 function Spectators.setBlacklistPos(self, list)
     if type(list) == "table" then
         self.blacklist_pos = list
@@ -75,6 +106,8 @@ function Spectators.setBlacklistPos(self, list)
     end
 end
 
+--- Convert position to range
+---@return table
 function Spectators.convertPosToRange(self)
     local pos = self:getCheckPosition()
     return {
@@ -84,6 +117,8 @@ function Spectators.convertPosToRange(self)
     }
 end
 
+--- Convert position
+---@return Position
 function Spectators.convertPos(self)
     local pos = self:getCheckPosition()
     local range = self:convertPosToRange()
@@ -94,6 +129,9 @@ function Spectators.convertPos(self)
     )
 end
 
+--- Check if creature is in blacklist_pos
+---@param creature Creature
+---@return boolean
 function Spectators.checkCreatureBlacklistPos(self, creature)
     local creature_pos = creature:getPosition()
     for _, v in pairs(self:getBlacklistPos()) do
@@ -106,6 +144,7 @@ function Spectators.checkCreatureBlacklistPos(self, creature)
     return false
 end
 
+--- Remove monsters
 function Spectators.removeMonsters(self)
     if self:getCreatureDetect() then
         for _, v in pairs(self:getCreatureDetect()) do
@@ -116,6 +155,8 @@ function Spectators.removeMonsters(self)
     end
 end
 
+--- Remove player
+---@param player Player
 function Spectators.removePlayer(self, player)
     if player then
         if player:isPlayer() then
@@ -130,6 +171,8 @@ function Spectators.removePlayer(self, player)
     end
 end
 
+--- Remove players
+---@param players table
 function Spectators.removePlayers(self, players)
     local creature_remove = players or self:getCreatureDetect()
     for _, v in pairs(creature_remove) do
@@ -137,6 +180,9 @@ function Spectators.removePlayers(self, players)
     end
 end
 
+--- Check spectators
+---@param pos table
+---@return table
 function Spectators.check(self, pos)
     if pos ~= nil then
         self:setCheckPosition(pos)
@@ -148,6 +194,8 @@ function Spectators.check(self, pos)
     return specs
 end
 
+--- Get players count
+---@return number
 function Spectators.getPlayers(self)
     local count = 0
     if not self:getCreatureDetect() then
@@ -162,6 +210,7 @@ function Spectators.getPlayers(self)
     return count
 end
 
+--- Clear creatures cache
 function Spectators.clearCreaturesCache(self)
     self:removeCreatureDetect()
 end
